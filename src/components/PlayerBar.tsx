@@ -1,8 +1,20 @@
 import { Pause, Play, SkipBack, SkipForward, Volume2 } from "lucide-react";
 import { useAudio } from "@/contexts/AudioContext";
+import { Slider } from "@/components/ui/slider";
 
 export const PlayerBar = () => {
-  const { currentTrack, isPlaying, play, pause, resume, progress } = useAudio();
+  const { 
+    currentTrack, 
+    isPlaying, 
+    play, 
+    pause, 
+    resume, 
+    progress,
+    volume,
+    setVolume,
+    nextTrack,
+    previousTrack
+  } = useAudio();
 
   const handlePlayPause = () => {
     if (!currentTrack) return;
@@ -11,6 +23,10 @@ export const PlayerBar = () => {
     } else {
       resume();
     }
+  };
+
+  const handleVolumeChange = (value: number[]) => {
+    setVolume(value[0] / 100);
   };
 
   return (
@@ -38,7 +54,10 @@ export const PlayerBar = () => {
         
         <div className="flex flex-col items-center gap-y-2">
           <div className="flex items-center gap-x-6">
-            <button className="text-spotify-text hover:text-white transition">
+            <button 
+              className="text-spotify-text hover:text-white transition"
+              onClick={previousTrack}
+            >
               <SkipBack className="h-5 w-5" />
             </button>
             <button 
@@ -51,7 +70,10 @@ export const PlayerBar = () => {
                 <Play className="h-5 w-5" />
               )}
             </button>
-            <button className="text-spotify-text hover:text-white transition">
+            <button 
+              className="text-spotify-text hover:text-white transition"
+              onClick={nextTrack}
+            >
               <SkipForward className="h-5 w-5" />
             </button>
           </div>
@@ -65,8 +87,14 @@ export const PlayerBar = () => {
 
         <div className="flex items-center gap-x-3">
           <Volume2 className="h-5 w-5" />
-          <div className="w-24 h-1 bg-spotify-light rounded-full">
-            <div className="w-1/2 h-full bg-white rounded-full" />
+          <div className="w-24">
+            <Slider
+              value={[volume * 100]}
+              max={100}
+              step={1}
+              onValueChange={handleVolumeChange}
+              className="w-full"
+            />
           </div>
         </div>
       </div>
