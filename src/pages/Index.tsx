@@ -4,33 +4,33 @@ import { PlaylistCard } from "@/components/PlaylistCard";
 
 const playlists = [
   {
-    title: "Today's Top Hits",
-    description: "Jung Kook is on top of the Hottest 50!",
+    title: "Star Wars Theme",
+    description: "John Williams",
     imageUrl: "https://picsum.photos/seed/1/300",
   },
   {
-    title: "RapCaviar",
-    description: "New music from Drake, Travis Scott and more.",
+    title: "Imperial March",
+    description: "John Williams",
     imageUrl: "https://picsum.photos/seed/2/300",
   },
   {
-    title: "All Out 2010s",
-    description: "The biggest songs of the 2010s.",
+    title: "The Force Theme",
+    description: "John Williams",
     imageUrl: "https://picsum.photos/seed/3/300",
   },
   {
-    title: "Rock Classics",
-    description: "Rock legends & epic songs that continue to inspire generations.",
+    title: "Duel of the Fates",
+    description: "John Williams",
     imageUrl: "https://picsum.photos/seed/4/300",
   },
   {
-    title: "Chill Hits",
-    description: "Kick back to the best new and recent chill hits.",
+    title: "Across the Stars",
+    description: "John Williams",
     imageUrl: "https://picsum.photos/seed/5/300",
   },
   {
-    title: "Viva Latino",
-    description: "Today's top Latin hits, elevando nuestra música.",
+    title: "Battle of the Heroes",
+    description: "John Williams",
     imageUrl: "https://picsum.photos/seed/6/300",
   },
 ];
