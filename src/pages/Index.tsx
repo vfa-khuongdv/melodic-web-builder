@@ -4,33 +4,33 @@ import { PlaylistCard } from "@/components/PlaylistCard";
 
 const playlists = [
   {
-    title: "Star Wars Theme",
-    description: "John Williams",
+    title: "Die With A Smile",
+    description: "NIKI",
     imageUrl: "https://picsum.photos/seed/1/300",
   },
   {
-    title: "Imperial March",
-    description: "John Williams",
+    title: "Apt.",
+    description: "NIKI",
     imageUrl: "https://picsum.photos/seed/2/300",
   },
   {
-    title: "The Force Theme",
-    description: "John Williams",
+    title: "High School in Jakarta",
+    description: "NIKI",
     imageUrl: "https://picsum.photos/seed/3/300",
   },
   {
-    title: "Duel of the Fates",
-    description: "John Williams",
+    title: "Before",
+    description: "NIKI",
     imageUrl: "https://picsum.photos/seed/4/300",
   },
   {
-    title: "Across the Stars",
-    description: "John Williams",
+    title: "Oceans & Engines",
+    description: "NIKI",
     imageUrl: "https://picsum.photos/seed/5/300",
   },
   {
-    title: "Battle of the Heroes",
-    description: "John Williams",
+    title: "Every Summertime",
+    description: "NIKI",
     imageUrl: "https://picsum.photos/seed/6/300",
   },
 ];

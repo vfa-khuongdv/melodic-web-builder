@@ -30,22 +30,43 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   const [volume, setVolume] = useState(0.5);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Sample playlist for demo purposes
+  // Updated playlist with more songs
   const playlist = [
     {
       id: "1",
-      title: "Star Wars Theme",
-      artist: "John Williams",
+      title: "Die With A Smile",
+      artist: "NIKI",
       imageUrl: "https://picsum.photos/200",
-      audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/StarWars60.wav",
+      audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/StarWars60.wav", // Using placeholder audio
     },
     {
       id: "2",
-      title: "Imperial March",
-      artist: "John Williams",
+      title: "Apt.",
+      artist: "NIKI",
       imageUrl: "https://picsum.photos/201",
-      audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/ImperialMarch60.wav",
+      audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/ImperialMarch60.wav", // Using placeholder audio
     },
+    {
+      id: "3",
+      title: "High School in Jakarta",
+      artist: "NIKI",
+      imageUrl: "https://picsum.photos/202",
+      audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/StarWars60.wav", // Using placeholder audio
+    },
+    {
+      id: "4",
+      title: "Before",
+      artist: "NIKI",
+      imageUrl: "https://picsum.photos/203",
+      audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/ImperialMarch60.wav", // Using placeholder audio
+    },
+    {
+      id: "5",
+      title: "Oceans & Engines",
+      artist: "NIKI",
+      imageUrl: "https://picsum.photos/204",
+      audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/StarWars60.wav", // Using placeholder audio
+    }
   ];
 
   const getCurrentTrackIndex = () => {
