@@ -35,11 +35,7 @@ export const PlayerBar = () => {
         <div className="flex items-center gap-x-4">
           {currentTrack ? (
             <>
-              <img 
-                src={currentTrack.imageUrl}
-                alt={currentTrack.title}
-                className="w-14 h-14 rounded object-cover"
-              />
+              <img src={currentTrack.imageUrl} alt={currentTrack.title} className="w-14 h-14 rounded" />
               <div>
                 <h4 className="text-sm font-medium">{currentTrack.title}</h4>
                 <p className="text-xs text-spotify-text">{currentTrack.artist}</p>
@@ -49,7 +45,7 @@ export const PlayerBar = () => {
             <>
               <div className="w-14 h-14 rounded bg-neutral-800" />
               <div>
-                <h4 className="text-sm font-medium">Select a video</h4>
+                <h4 className="text-sm font-medium">Select a song</h4>
                 <p className="text-xs text-spotify-text">Artist</p>
               </div>
             </>
@@ -102,21 +98,6 @@ export const PlayerBar = () => {
           </div>
         </div>
       </div>
-
-      {currentTrack && (
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-          <div className="w-full max-w-4xl aspect-video bg-black rounded-lg overflow-hidden shadow-2xl">
-            <video
-              key={currentTrack.mediaUrl}
-              src={currentTrack.mediaUrl}
-              className="w-full h-full"
-              controls
-              autoPlay={isPlaying}
-              playsInline
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 };
