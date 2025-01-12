@@ -104,14 +104,17 @@ export const PlayerBar = () => {
       </div>
 
       {currentTrack && (
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl aspect-video bg-black rounded-lg overflow-hidden">
-          <video
-            src={currentTrack.mediaUrl}
-            className="w-full h-full"
-            controls
-            autoPlay={isPlaying}
-            playsInline
-          />
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+          <div className="w-full max-w-4xl aspect-video bg-black rounded-lg overflow-hidden shadow-2xl">
+            <video
+              key={currentTrack.mediaUrl}
+              src={currentTrack.mediaUrl}
+              className="w-full h-full"
+              controls
+              autoPlay={isPlaying}
+              playsInline
+            />
+          </div>
         </div>
       )}
     </div>
