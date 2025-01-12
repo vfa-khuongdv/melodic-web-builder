@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState, useRef } from "react";
 
+import { playlists } from '../shared/constants'
+
 interface AudioContextType {
   currentTrack: Track | null;
   isPlaying: boolean;
@@ -30,48 +32,10 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   const [volume, setVolume] = useState(0.5);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Updated playlist with more songs
-  const playlist = [
-    {
-      id: "1",
-      title: "Die With A Smile",
-      artist: "NIKI",
-      imageUrl: "https://picsum.photos/200",
-      audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/StarWars60.wav", // Using placeholder audio
-    },
-    {
-      id: "2",
-      title: "Apt.",
-      artist: "NIKI",
-      imageUrl: "https://picsum.photos/201",
-      audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/ImperialMarch60.wav", // Using placeholder audio
-    },
-    {
-      id: "3",
-      title: "High School in Jakarta",
-      artist: "NIKI",
-      imageUrl: "https://picsum.photos/202",
-      audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/StarWars60.wav", // Using placeholder audio
-    },
-    {
-      id: "4",
-      title: "Before",
-      artist: "NIKI",
-      imageUrl: "https://picsum.photos/203",
-      audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/ImperialMarch60.wav", // Using placeholder audio
-    },
-    {
-      id: "5",
-      title: "Oceans & Engines",
-      artist: "NIKI",
-      imageUrl: "https://picsum.photos/204",
-      audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/StarWars60.wav", // Using placeholder audio
-    }
-  ];
 
   const getCurrentTrackIndex = () => {
     if (!currentTrack) return -1;
-    return playlist.findIndex((track) => track.id === currentTrack.id);
+    return playlists.findIndex((track) => track.id === currentTrack.id);
   };
 
   const play = (track: Track) => {
@@ -104,15 +68,15 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
 
   const nextTrack = () => {
     const currentIndex = getCurrentTrackIndex();
-    if (currentIndex < playlist.length - 1) {
-      play(playlist[currentIndex + 1]);
+    if (currentIndex < playlists.length - 1) {
+      play(playlists[currentIndex + 1]);
     }
   };
 
   const previousTrack = () => {
     const currentIndex = getCurrentTrackIndex();
     if (currentIndex > 0) {
-      play(playlist[currentIndex - 1]);
+      play(playlists[currentIndex - 1]);
     }
   };
 
@@ -126,7 +90,7 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   React.useEffect(() => {
     audioRef.current = new Audio();
     audioRef.current.volume = volume;
-    
+
     audioRef.current.addEventListener("timeupdate", () => {
       if (audioRef.current) {
         setProgress((audioRef.current.currentTime / audioRef.current.duration) * 100);
@@ -142,15 +106,15 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <AudioContext.Provider 
-      value={{ 
-        currentTrack, 
-        isPlaying, 
-        play, 
-        pause, 
-        resume, 
-        progress, 
-        volume, 
+    <AudioContext.Provider
+      value={{
+        currentTrack,
+        isPlaying,
+        play,
+        pause,
+        resume,
+        progress,
+        volume,
         setVolume: handleVolumeChange,
         nextTrack,
         previousTrack
