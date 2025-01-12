@@ -19,7 +19,7 @@ export interface Track {
   artist: string;
   imageUrl: string;
   mediaUrl: string;
-  type: 'audio' | 'video';
+  type: 'video';
 }
 
 const AudioContext = createContext<MediaContextType | undefined>(undefined);
@@ -29,33 +29,33 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [volume, setVolume] = useState(0.5);
-  const mediaRef = useRef<HTMLVideoElement | HTMLAudioElement | null>(null);
+  const mediaRef = useRef<HTMLVideoElement | null>(null);
 
   // Updated playlist with video content
   const playlist = [
     {
       id: "1",
-      title: "Die With A Smile",
-      artist: "NIKI",
+      title: "Big Buck Bunny",
+      artist: "Blender Foundation",
       imageUrl: "https://picsum.photos/200",
-      mediaUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/StarWars60.wav",
-      type: 'audio' as const
-    },
-    {
-      id: "2",
-      title: "Sample Video",
-      artist: "Sample Artist",
-      imageUrl: "https://picsum.photos/201",
       mediaUrl: "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4",
       type: 'video' as const
     },
     {
+      id: "2",
+      title: "Sample Video 2",
+      artist: "Test Artist",
+      imageUrl: "https://picsum.photos/201",
+      mediaUrl: "https://test-videos.co.uk/vids/jellyfish/mp4/h264/360/Jellyfish_360_10s_1MB.mp4",
+      type: 'video' as const
+    },
+    {
       id: "3",
-      title: "High School in Jakarta",
-      artist: "NIKI",
+      title: "Sample Video 3",
+      artist: "Demo Artist",
       imageUrl: "https://picsum.photos/202",
-      mediaUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/StarWars60.wav",
-      type: 'audio' as const
+      mediaUrl: "https://test-videos.co.uk/vids/sintel/mp4/h264/360/Sintel_360_10s_1MB.mp4",
+      type: 'video' as const
     }
   ];
 
@@ -114,7 +114,6 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   React.useEffect(() => {
-    // Create appropriate media element based on current track type
     const cleanupMedia = () => {
       if (mediaRef.current) {
         mediaRef.current.pause();
@@ -125,10 +124,7 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
     cleanupMedia();
     
     if (currentTrack) {
-      mediaRef.current = currentTrack.type === 'video' 
-        ? document.createElement('video')
-        : document.createElement('audio');
-      
+      mediaRef.current = document.createElement('video');
       mediaRef.current.volume = volume;
       
       mediaRef.current.addEventListener("timeupdate", () => {

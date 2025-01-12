@@ -35,18 +35,10 @@ export const PlayerBar = () => {
         <div className="flex items-center gap-x-4">
           {currentTrack ? (
             <>
-              {currentTrack.type === 'video' ? (
-                <video 
-                  src={currentTrack.mediaUrl}
-                  className="w-14 h-14 rounded object-cover"
-                />
-              ) : (
-                <img 
-                  src={currentTrack.imageUrl} 
-                  alt={currentTrack.title} 
-                  className="w-14 h-14 rounded" 
-                />
-              )}
+              <video 
+                src={currentTrack.mediaUrl}
+                className="w-14 h-14 rounded object-cover"
+              />
               <div>
                 <h4 className="text-sm font-medium">{currentTrack.title}</h4>
                 <p className="text-xs text-spotify-text">{currentTrack.artist}</p>
@@ -56,7 +48,7 @@ export const PlayerBar = () => {
             <>
               <div className="w-14 h-14 rounded bg-neutral-800" />
               <div>
-                <h4 className="text-sm font-medium">Select a song</h4>
+                <h4 className="text-sm font-medium">Select a video</h4>
                 <p className="text-xs text-spotify-text">Artist</p>
               </div>
             </>
@@ -110,7 +102,7 @@ export const PlayerBar = () => {
         </div>
       </div>
 
-      {currentTrack?.type === 'video' && (
+      {currentTrack && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl aspect-video bg-black rounded-lg overflow-hidden">
           <video
             src={currentTrack.mediaUrl}
