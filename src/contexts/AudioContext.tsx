@@ -31,7 +31,6 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   const [volume, setVolume] = useState(0.5);
   const mediaRef = useRef<HTMLVideoElement | null>(null);
 
-  // Updated playlist with video content
   const playlist = [
     {
       id: "1",
@@ -65,31 +64,16 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const play = (track: Track) => {
-    if (mediaRef.current) {
-      if (currentTrack?.id === track.id) {
-        mediaRef.current.play();
-        setIsPlaying(true);
-        return;
-      }
-      mediaRef.current.src = track.mediaUrl;
-      mediaRef.current.play();
-      setCurrentTrack(track);
-      setIsPlaying(true);
-    }
+    setCurrentTrack(track);
+    setIsPlaying(true);
   };
 
   const pause = () => {
-    if (mediaRef.current) {
-      mediaRef.current.pause();
-      setIsPlaying(false);
-    }
+    setIsPlaying(false);
   };
 
   const resume = () => {
-    if (mediaRef.current) {
-      mediaRef.current.play();
-      setIsPlaying(true);
-    }
+    setIsPlaying(true);
   };
 
   const nextTrack = () => {
@@ -125,6 +109,7 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
     
     if (currentTrack) {
       mediaRef.current = document.createElement('video');
+      mediaRef.current.src = currentTrack.mediaUrl;
       mediaRef.current.volume = volume;
       
       mediaRef.current.addEventListener("timeupdate", () => {
@@ -132,10 +117,14 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
           setProgress((mediaRef.current.currentTime / mediaRef.current.duration) * 100);
         }
       });
+
+      if (isPlaying) {
+        mediaRef.current.play();
+      }
     }
 
     return cleanupMedia;
-  }, [currentTrack?.type]);
+  }, [currentTrack, isPlaying, volume]);
 
   return (
     <AudioContext.Provider 

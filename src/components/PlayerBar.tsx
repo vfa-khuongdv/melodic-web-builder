@@ -35,8 +35,9 @@ export const PlayerBar = () => {
         <div className="flex items-center gap-x-4">
           {currentTrack ? (
             <>
-              <video 
-                src={currentTrack.mediaUrl}
+              <img 
+                src={currentTrack.imageUrl}
+                alt={currentTrack.title}
                 className="w-14 h-14 rounded object-cover"
               />
               <div>
@@ -109,6 +110,7 @@ export const PlayerBar = () => {
             className="w-full h-full"
             controls
             autoPlay={isPlaying}
+            playsInline
           />
         </div>
       )}
