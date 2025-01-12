@@ -16,7 +16,7 @@ export const PlayerBar = () => {
     nextTrack,
     previousTrack,
     setProgress,
-    audioRef // Get audioRef from useAudio
+    audioRef,
   } = useAudio();
 
   const handlePlayPause = () => {
@@ -36,17 +36,14 @@ export const PlayerBar = () => {
     seek(value[0]);
   };
 
-  // Format time as mm:ss
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = Math.floor(seconds % 60);
     return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
-  // Ensure that the audioRef's duration is set correctly
   useEffect(() => {
     if (audioRef?.current) {
-      // Update progress every time the audio plays
       const updateProgress = () => {
         if (audioRef.current?.duration) {
           setProgress((audioRef.current.currentTime / audioRef.current.duration) * 100);
@@ -64,13 +61,18 @@ export const PlayerBar = () => {
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-b from-background/10 to-background/90 backdrop-blur-lg border-t border-white/5 px-4 py-3">
       <div className="flex items-center justify-between max-w-7xl mx-auto">
-        <div className="flex items-center gap-x-4">
+        {/* Track Info */}
+        <div className="flex items-center gap-x-4 flex-1">
           {currentTrack ? (
             <>
-              <img src={currentTrack.imageUrl} alt={currentTrack.title} className="w-14 h-14 rounded" />
+              <img
+                src={currentTrack.imageUrl}
+                alt={currentTrack.title}
+                className="w-14 h-14 rounded"
+              />
               <div>
                 <h4 className="text-sm font-medium">{currentTrack.title}</h4>
-                <p className="text-xs text-spotify-text">{currentTrack.artist}</p>
+                <p className="text-xs text-spotify-text hidden sm:block">{currentTrack.artist}</p>
               </div>
             </>
           ) : (
@@ -84,7 +86,8 @@ export const PlayerBar = () => {
           )}
         </div>
 
-        <div className="flex flex-col items-center gap-y-2">
+        {/* Player Controls */}
+        <div className="flex flex-col items-center gap-y-2 flex-1">
           <div className="flex items-center gap-x-6">
             <button
               className="text-spotify-text hover:text-white transition"
@@ -106,10 +109,11 @@ export const PlayerBar = () => {
             </button>
           </div>
 
-          <div className="flex items-center gap-x-2">
-            {/* Current time display */}
-            <span className="text-xs text-spotify-text">{formatTime((progress / 100) * (audioRef?.current?.duration || 0))}</span>
-            <div className="w-80">
+          <div className="flex items-center gap-x-2 w-full">
+            <span className="text-xs text-spotify-text">
+              {formatTime((progress / 100) * (audioRef?.current?.duration || 0))}
+            </span>
+            <div className="flex-1">
               <Slider
                 value={[progress]}
                 max={100}
@@ -118,14 +122,18 @@ export const PlayerBar = () => {
                 className="w-full"
               />
             </div>
-            {/* Total time display */}
-            <span className="text-xs text-spotify-text">{currentTrack && audioRef?.current?.duration ? formatTime(audioRef?.current.duration) : "0:00"}</span>
+            <span className="text-xs text-spotify-text">
+              {currentTrack && audioRef?.current?.duration
+                ? formatTime(audioRef?.current.duration)
+                : "0:00"}
+            </span>
           </div>
         </div>
 
-        <div className="flex items-center gap-x-3">
+        {/* Volume Control (hidden on mobile) */}
+        <div className="flex items-center gap-x-3 flex-1 justify-end hidden sm:flex">
           <Volume2 className="h-5 w-5" />
-          <div className="w-24">
+          <div className="w-20 sm:w-24">
             <Slider
               value={[volume * 100]}
               max={100}
