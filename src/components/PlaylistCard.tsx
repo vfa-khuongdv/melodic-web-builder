@@ -12,12 +12,12 @@ export const PlaylistCard = ({ title, description, imageUrl }: PlaylistCardProps
 
   const handlePlay = () => {
     const track: Track = {
-      id: title, // Using title as ID for demo
+      id: title,
       title,
       artist: description,
       imageUrl,
-      // Using a sample audio file for demonstration
-      audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/StarWars60.wav",
+      mediaUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/StarWars60.wav",
+      type: 'audio'
     };
     play(track);
   };
