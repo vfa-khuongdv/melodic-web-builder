@@ -19,8 +19,7 @@ export interface Track {
   artist: string;
   imageUrl: string;
   mediaUrl: string;
-  type: 'audio' | 'video' | 'youtube';
-  youtubeId?: string;
+  type: 'audio' | 'video';
 }
 
 const AudioContext = createContext<MediaContextType | undefined>(undefined);
@@ -32,7 +31,7 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   const [volume, setVolume] = useState(0.5);
   const mediaRef = useRef<HTMLVideoElement | HTMLAudioElement | null>(null);
 
-  // Updated playlist with YouTube content
+  // Updated playlist with video content
   const playlist = [
     {
       id: "1",
@@ -44,12 +43,11 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
     },
     {
       id: "2",
-      title: "BABYMONSTER - SHEESH",
-      artist: "BABYMONSTER",
-      imageUrl: "https://i.ytimg.com/vi/cxhqqpVk65Q/maxresdefault.jpg",
-      mediaUrl: "https://www.youtube.com/embed/cxhqqpVk65Q",
-      type: 'youtube' as const,
-      youtubeId: "cxhqqpVk65Q"
+      title: "Sample Video",
+      artist: "Sample Artist",
+      imageUrl: "https://picsum.photos/201",
+      mediaUrl: "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4",
+      type: 'video' as const
     },
     {
       id: "3",
@@ -67,8 +65,17 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const play = (track: Track) => {
-    setCurrentTrack(track);
-    setIsPlaying(true);
+    if (mediaRef.current) {
+      if (currentTrack?.id === track.id) {
+        mediaRef.current.play();
+        setIsPlaying(true);
+        return;
+      }
+      mediaRef.current.src = track.mediaUrl;
+      mediaRef.current.play();
+      setCurrentTrack(track);
+      setIsPlaying(true);
+    }
   };
 
   const pause = () => {
