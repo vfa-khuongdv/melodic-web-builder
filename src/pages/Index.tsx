@@ -10,7 +10,7 @@ const Index = () => {
       <Sidebar />
       <main className="flex-1 overflow-y-auto bg-gradient-to-b from-spotify-light to-spotify-dark p-6">
         <div className="max-w-7xl mx-auto animate-fade-in">
-          <h1 className="text-3xl font-bold mb-6">Good evening</h1>
+          <h1 className="text-3xl font-bold mb-6">Good morning</h1>
 
           <section className="mb-8">
             <h2 className="text-2xl font-bold mb-4">Featured Playlists</h2>
