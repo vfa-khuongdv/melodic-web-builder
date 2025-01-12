@@ -19,15 +19,22 @@ export const playlists = [
     artist: "BÙI CÔNG NAM | TẾT NÀY CON SẼ VỀ",
     imageUrl: "https://thanhnien.mediacdn.vn/Uploaded/nguyenvan/2022_01_11/tncsvposter2-6388.jpg",
     audioUrl: "/assets/TET_NAY_CON_SE_VE.mp3"
+  },
+  {
+    id: "100002",
+    title: "Tết Đong Đầy",
+    artist: "Tết Đong Đầy | KHOA x Kay Tran x Duck V | HOMIE BOIZ OFFICIAL",
+    imageUrl: "https://i.ytimg.com/vi/gOtfJ151ue4/maxresdefault.jpg",
+    audioUrl: "/assets/Tết Đong Đầy.mp3"
+  },
+  {
+    id: "100003",
+    title: "DRIP",
+    artist: "BABYMONSTER - 'DRIP' M/V",
+    imageUrl: "https://www.billboard.com/wp-content/uploads/2024/11/BABYMONSTER-cr-Courtesy-of-YG-Entertainment-press-2024-billboard-1548.jpg?w=942&h=623&crop=1",
+    audioUrl: "/assets/DRIP.mp3",
   }
   , ...shuffleArray([
-    {
-      id: "1",
-      title: "DRIP",
-      artist: "BABYMONSTER - 'DRIP' M/V",
-      imageUrl: "https://www.billboard.com/wp-content/uploads/2024/11/BABYMONSTER-cr-Courtesy-of-YG-Entertainment-press-2024-billboard-1548.jpg?w=942&h=623&crop=1",
-      audioUrl: "/assets/DRIP.mp3",
-    },
     {
       id: "2",
       title: "Die With A Smile",
@@ -91,11 +98,4 @@ export const playlists = [
       imageUrl: "https://i1.sndcdn.com/artworks-glAxMxnzuPDADJLT-Gvx47Q-t500x500.jpg",
       audioUrl: "/assets/Không Bằng.mp3"
     },
-    {
-      id: "11",
-      title: "Tết Đong Đầy",
-      artist: "Tết Đong Đầy | KHOA x Kay Tran x Duck V | HOMIE BOIZ OFFICIAL",
-      imageUrl: "https://i.ytimg.com/vi/gOtfJ151ue4/maxresdefault.jpg",
-      audioUrl: "/assets/Tết Đong Đầy.mp3"
-    }
   ])];
