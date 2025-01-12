@@ -7,11 +7,18 @@ function shuffleArray<T>(array: T[]): T[] {
 
 export const playlists = [
   {
-    id: "12",
+    id: "100000",
+    title: "Tết Ổn Rồi",
+    artist: "Tết Ổn RồI | Đông Nhi x Hiền Thục x Jun Phạm x Bùi Công Nam | Official MV",
+    imageUrl: "https://cdn.tuoitre.vn/thumb_w/480/471584752817336320/2024/1/9/ngoai-4-giong-ca-chinh-dan-nghe-si-tham-gia-mv-tet-on-roi-con-co-le-thien-huynh-lap-1704769932188712945529.png",
+    audioUrl: "/assets/TET_ON_ROI.mp3"
+  },
+  {
+    id: "100001",
     title: "TẾT NÀY CON SẼ VỀ",
-    artist: "BÙI CÔNG NAM | TẾT NÀY CON SẼ VỀ | OFFICIAL MUSIC VIDEO",
+    artist: "BÙI CÔNG NAM | TẾT NÀY CON SẼ VỀ",
     imageUrl: "https://thanhnien.mediacdn.vn/Uploaded/nguyenvan/2022_01_11/tncsvposter2-6388.jpg",
-    audioUrl: "/assets/TẾT NÀY CON SẼ VỀ.mp3"
+    audioUrl: "/assets/TET_NAY_CON_SE_VE.mp3"
   }
   , ...shuffleArray([
     {
@@ -90,5 +97,5 @@ export const playlists = [
       artist: "Tết Đong Đầy | KHOA x Kay Tran x Duck V | HOMIE BOIZ OFFICIAL",
       imageUrl: "https://i.ytimg.com/vi/gOtfJ151ue4/maxresdefault.jpg",
       audioUrl: "/assets/Tết Đong Đầy.mp3"
-    },
+    }
   ])];
