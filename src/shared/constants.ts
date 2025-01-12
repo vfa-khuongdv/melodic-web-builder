@@ -29,6 +29,13 @@ export const playlists = [
   },
   {
     id: "100003",
+    title: " Đi Về Nhà",
+    artist: "Đen x JustaTee - Đi Về Nhà (M/V)",
+    imageUrl: "https://ss-images.saostar.vn/wpr700/pc/1608710198613/01.jpg",
+    audioUrl: "/assets/di_ve_nha.mp3",
+  },
+  {
+    id: "100004",
     title: "DRIP",
     artist: "BABYMONSTER - 'DRIP' M/V",
     imageUrl: "https://www.billboard.com/wp-content/uploads/2024/11/BABYMONSTER-cr-Courtesy-of-YG-Entertainment-press-2024-billboard-1548.jpg?w=942&h=623&crop=1",
@@ -90,12 +97,5 @@ export const playlists = [
       artist: "Gamma Skies - Loving This Moment",
       imageUrl: "https://i1.sndcdn.com/artworks-bREtRSKy4L42-0-t500x500.png",
       audioUrl: "/assets/Gamma Skies - Loving This Moment.mp3"
-    },
-    {
-      id: "10",
-      title: "Không Bằng",
-      artist: "Không Bằng - Na Ngọc Anh",
-      imageUrl: "https://i1.sndcdn.com/artworks-glAxMxnzuPDADJLT-Gvx47Q-t500x500.jpg",
-      audioUrl: "/assets/Không Bằng.mp3"
-    },
+    }
   ])];
