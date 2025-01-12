@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useRef } from "react";
 
-interface AudioContextType {
+interface MediaContextType {
   currentTrack: Track | null;
   isPlaying: boolean;
   play: (track: Track) => void;
@@ -18,54 +18,44 @@ export interface Track {
   title: string;
   artist: string;
   imageUrl: string;
-  audioUrl: string;
+  mediaUrl: string;
+  type: 'audio' | 'video';
 }
 
-const AudioContext = createContext<AudioContextType | undefined>(undefined);
+const AudioContext = createContext<MediaContextType | undefined>(undefined);
 
 export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [volume, setVolume] = useState(0.5);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const mediaRef = useRef<HTMLVideoElement | HTMLAudioElement | null>(null);
 
-  // Updated playlist with more songs
+  // Updated playlist with video content
   const playlist = [
     {
       id: "1",
       title: "Die With A Smile",
       artist: "NIKI",
       imageUrl: "https://picsum.photos/200",
-      audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/StarWars60.wav", // Using placeholder audio
+      mediaUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/StarWars60.wav",
+      type: 'audio' as const
     },
     {
       id: "2",
-      title: "Apt.",
-      artist: "NIKI",
+      title: "Sample Video",
+      artist: "Sample Artist",
       imageUrl: "https://picsum.photos/201",
-      audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/ImperialMarch60.wav", // Using placeholder audio
+      mediaUrl: "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4",
+      type: 'video' as const
     },
     {
       id: "3",
       title: "High School in Jakarta",
       artist: "NIKI",
       imageUrl: "https://picsum.photos/202",
-      audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/StarWars60.wav", // Using placeholder audio
-    },
-    {
-      id: "4",
-      title: "Before",
-      artist: "NIKI",
-      imageUrl: "https://picsum.photos/203",
-      audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/ImperialMarch60.wav", // Using placeholder audio
-    },
-    {
-      id: "5",
-      title: "Oceans & Engines",
-      artist: "NIKI",
-      imageUrl: "https://picsum.photos/204",
-      audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/StarWars60.wav", // Using placeholder audio
+      mediaUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/StarWars60.wav",
+      type: 'audio' as const
     }
   ];
 
@@ -75,29 +65,29 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const play = (track: Track) => {
-    if (audioRef.current) {
+    if (mediaRef.current) {
       if (currentTrack?.id === track.id) {
-        audioRef.current.play();
+        mediaRef.current.play();
         setIsPlaying(true);
         return;
       }
-      audioRef.current.src = track.audioUrl;
-      audioRef.current.play();
+      mediaRef.current.src = track.mediaUrl;
+      mediaRef.current.play();
       setCurrentTrack(track);
       setIsPlaying(true);
     }
   };
 
   const pause = () => {
-    if (audioRef.current) {
-      audioRef.current.pause();
+    if (mediaRef.current) {
+      mediaRef.current.pause();
       setIsPlaying(false);
     }
   };
 
   const resume = () => {
-    if (audioRef.current) {
-      audioRef.current.play();
+    if (mediaRef.current) {
+      mediaRef.current.play();
       setIsPlaying(true);
     }
   };
@@ -117,29 +107,39 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const handleVolumeChange = (newVolume: number) => {
-    if (audioRef.current) {
-      audioRef.current.volume = newVolume;
+    if (mediaRef.current) {
+      mediaRef.current.volume = newVolume;
       setVolume(newVolume);
     }
   };
 
   React.useEffect(() => {
-    audioRef.current = new Audio();
-    audioRef.current.volume = volume;
-    
-    audioRef.current.addEventListener("timeupdate", () => {
-      if (audioRef.current) {
-        setProgress((audioRef.current.currentTime / audioRef.current.duration) * 100);
-      }
-    });
-
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.remove();
+    // Create appropriate media element based on current track type
+    const cleanupMedia = () => {
+      if (mediaRef.current) {
+        mediaRef.current.pause();
+        mediaRef.current.remove();
       }
     };
-  }, []);
+
+    cleanupMedia();
+    
+    if (currentTrack) {
+      mediaRef.current = currentTrack.type === 'video' 
+        ? document.createElement('video')
+        : document.createElement('audio');
+      
+      mediaRef.current.volume = volume;
+      
+      mediaRef.current.addEventListener("timeupdate", () => {
+        if (mediaRef.current) {
+          setProgress((mediaRef.current.currentTime / mediaRef.current.duration) * 100);
+        }
+      });
+    }
+
+    return cleanupMedia;
+  }, [currentTrack?.type]);
 
   return (
     <AudioContext.Provider 
