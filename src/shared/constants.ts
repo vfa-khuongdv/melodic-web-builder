@@ -97,5 +97,12 @@ export const playlists = [
       artist: "Gamma Skies - Loving This Moment",
       imageUrl: "https://i1.sndcdn.com/artworks-bREtRSKy4L42-0-t500x500.png",
       audioUrl: "/assets/Gamma Skies - Loving This Moment.mp3"
+    },
+    {
+      id: "10",
+      title: "Bring Me Back ft. Claire Ridgely",
+      artist: "Miles Away - Bring Me Back ft. Claire Ridgely",
+      imageUrl: "https://i.ytimg.com/vi/iWy4W5JLcNo/maxresdefault.jpg",
+      audioUrl: "/assets/Bring Me Back.mp3"
     }
   ])];
