@@ -14,7 +14,8 @@ interface AudioContextType {
   nextTrack: () => void;
   previousTrack: () => void;
   setProgress: (...args) => void,
-  audioRef // Pass it down to the context
+  audioRef
+  initPlay: boolean;
 }
 
 export interface Track {
@@ -25,10 +26,20 @@ export interface Track {
   audioUrl: string;
 }
 
+interface PlayerState {
+  currentTrack: Track | null;
+  volume: number;
+  currentTime: number;
+}
+
+
+const PLAYER_STATE_KEY = 'PLAYER_STATE_KEY'
+
 const AudioContext = createContext<AudioContextType | undefined>(undefined);
 
 export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
+  const [initPlay, setInitPlay] = useState<boolean>(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [volume, setVolume] = useState(0.5);
@@ -50,25 +61,11 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
 
-  // Load current track from localStorage
-  // const loadCurrentTrackFromStorage = () => {
-  //   const storedTrack = localStorage.getItem("currentTrack");
-  //   if (storedTrack) {
-  //     const trackFromStorage: Track = JSON.parse(storedTrack);
-  //     setCurrentTrack(trackFromStorage);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   //loadCurrentTrackFromStorage();
-  // }, []);
-
   // Play a track and update localStorage
   const play = (track: Track) => {
-    console.log('track', track)
+    setInitPlay(true);
     setCurrentTrack(track);
     localStorage.setItem("currentTrack", JSON.stringify(track)); // Store current track in localStorage
-    console.log('track', track)
     if (audioRef.current) {
       if (currentTrack?.id === track.id) {
         audioRef.current.play();
@@ -127,13 +124,45 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const onSavePlayerState = (state: PlayerState) => {
+    localStorage.setItem(PLAYER_STATE_KEY, JSON.stringify(state))
+  }
+
   useEffect(() => {
     audioRef.current = new Audio();
     audioRef.current.volume = volume;
 
+    const savedState = localStorage.getItem(PLAYER_STATE_KEY);
+    if (savedState) {
+      const { currentTrack, volume, currentTime } = JSON.parse(savedState) as PlayerState;
+      if (currentTrack) {
+        setCurrentTrack(currentTrack);
+        if (audioRef.current) {
+          audioRef.current.src = currentTrack.audioUrl;
+          audioRef.current.currentTime = currentTime || 0
+        }
+      }
+      setVolume(volume);
+    }
+
+
     audioRef.current.addEventListener("timeupdate", () => {
       if (audioRef.current && audioRef.current.duration) {
-        setProgress((audioRef.current.currentTime / audioRef.current.duration) * 100);
+        const percent = (audioRef.current.currentTime / audioRef.current.duration) * 100
+        setProgress(percent);
+        // Save state of player
+
+        const storedTrack = localStorage.getItem("currentTrack");
+        if (!storedTrack) {
+          return;
+        }
+
+        onSavePlayerState(
+          {
+            currentTrack: JSON.parse(storedTrack),
+            volume,
+            currentTime: audioRef.current.currentTime,
+          })
       }
     });
 
@@ -166,6 +195,7 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
         nextTrack,
         previousTrack,
         audioRef,
+        initPlay,
         setProgress,
       }}
     >

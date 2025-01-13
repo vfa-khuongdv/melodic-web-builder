@@ -17,15 +17,26 @@ export const PlayerBar = () => {
     previousTrack,
     setProgress,
     audioRef,
+    initPlay,
+    play
   } = useAudio();
 
   const handlePlayPause = () => {
     if (!currentTrack) return;
+    if (initPlay == false) {
+      if (currentTrack) {
+        play(currentTrack);
+      }
+      return;
+    }
+
     if (isPlaying) {
       pause();
     } else {
       resume();
     }
+
+
   };
 
   const handleVolumeChange = (value: number[]) => {
