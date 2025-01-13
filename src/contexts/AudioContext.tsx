@@ -1,21 +1,25 @@
 import React, { createContext, useContext, useState, useRef, useEffect } from "react";
 import { playlists } from "../shared/constants";
 
+/**
+ * Interface defining the shape of the audio context
+ * Contains methods and properties for controlling audio playback
+ */
 interface AudioContextType {
-  currentTrack: Track | null;
-  isPlaying: boolean;
-  play: (track: Track) => void;
-  pause: () => void;
-  resume: () => void;
-  seek: (position: number) => void; // Added
-  progress: number;
-  volume: number;
-  setVolume: (volume: number) => void;
-  nextTrack: () => void;
-  previousTrack: () => void;
-  setProgress: (...args) => void,
-  audioRef
-  initPlay: boolean;
+  currentTrack: Track | null;        // Currently playing track
+  isPlaying: boolean;                // Whether audio is currently playing
+  play: (track: Track) => void;      // Start playing a track
+  pause: () => void;                 // Pause current playback
+  resume: () => void;                // Resume paused playback
+  seek: (position: number) => void;  // Seek to position in track
+  progress: number;                  // Current playback progress (0-100)
+  volume: number;                    // Current volume level (0-1)
+  setVolume: React.Dispatch<React.SetStateAction<number>>; // Set the volume level
+  nextTrack: () => void;            // Skip to next track
+  previousTrack: () => void;         // Go to previous track
+  setProgress: (...args) => void,    // Update progress value
+  audioRef                           // Reference to audio element
+  initPlay: boolean;                 // Flag indicating whether playback has been initialized after page load
 }
 
 export interface Track {
