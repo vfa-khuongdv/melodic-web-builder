@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useRef, useEffect } from "react";
+import React, { createContext, useContext, useState, useRef } from "react";
 
 interface AudioContextType {
   currentTrack: Track | null;
@@ -21,15 +21,6 @@ export interface Track {
   audioUrl: string;
 }
 
-interface PlayerState {
-  currentTrack: Track | null;
-  volume: number;
-  progress: number;
-  isPlaying: boolean;
-}
-
-const PLAYER_STATE_KEY = 'spotify_player_state';
-
 const AudioContext = createContext<AudioContextType | undefined>(undefined);
 
 export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
@@ -39,6 +30,7 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   const [volume, setVolume] = useState(0.5);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  // Updated playlist with more songs
   const playlist = [
     {
       id: "1",
@@ -76,40 +68,6 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
       audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/StarWars60.wav", // Using placeholder audio
     }
   ];
-
-  // Load saved state from localStorage
-  useEffect(() => {
-    const savedState = localStorage.getItem(PLAYER_STATE_KEY);
-    if (savedState) {
-      const { currentTrack, volume, progress, isPlaying } = JSON.parse(savedState) as PlayerState;
-      if (currentTrack) {
-        setCurrentTrack(currentTrack);
-        if (audioRef.current) {
-          audioRef.current.src = currentTrack.audioUrl;
-          audioRef.current.currentTime = (progress / 100) * audioRef.current.duration || 0;
-          if (isPlaying) {
-            audioRef.current.play().catch(() => {
-              console.log('Autoplay prevented by browser');
-              setIsPlaying(false);
-            });
-          }
-        }
-      }
-      setIsPlaying(isPlaying);
-      setVolume(volume);
-    }
-  }, []);
-
-  // Save state to localStorage whenever it changes
-  useEffect(() => {
-    const state: PlayerState = {
-      currentTrack,
-      volume,
-      progress,
-      isPlaying,
-    };
-    localStorage.setItem(PLAYER_STATE_KEY, JSON.stringify(state));
-  }, [currentTrack, volume, progress, isPlaying]);
 
   const getCurrentTrackIndex = () => {
     if (!currentTrack) return -1;
