@@ -134,7 +134,7 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
 
     const savedState = localStorage.getItem(PLAYER_STATE_KEY);
     if (savedState) {
-      const { currentTrack, volume, currentTime } = JSON.parse(savedState) as PlayerState;
+      const { currentTrack, currentTime } = JSON.parse(savedState) as PlayerState;
       if (currentTrack) {
         setCurrentTrack(currentTrack);
         if (audioRef.current) {
@@ -142,7 +142,6 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
           audioRef.current.currentTime = currentTime || 0
         }
       }
-      setVolume(volume);
     }
 
 
@@ -157,12 +156,11 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
           return;
         }
 
-        onSavePlayerState(
-          {
-            currentTrack: JSON.parse(storedTrack),
-            volume,
-            currentTime: audioRef.current.currentTime,
-          })
+        onSavePlayerState({
+          currentTrack: JSON.parse(storedTrack),
+          volume,
+          currentTime: audioRef.current.currentTime,
+        })
       }
     });
 

@@ -121,7 +121,7 @@ export const PlayerBar = () => {
           </div>
 
           <div className="flex items-center gap-x-2 w-full">
-            <span className="text-xs text-spotify-text">
+            <span className="text-xs w-[4ch] text-spotify-text">
               {formatTime((progress / 100) * (audioRef?.current?.duration || 0))}
             </span>
             <div className="flex-1">
@@ -133,7 +133,7 @@ export const PlayerBar = () => {
                 className="w-full"
               />
             </div>
-            <span className="text-xs text-spotify-text">
+            <span className="text-xs w-[4ch] text-spotify-text">
               {currentTrack && audioRef?.current?.duration
                 ? formatTime(audioRef?.current.duration)
                 : "0:00"}
@@ -142,7 +142,7 @@ export const PlayerBar = () => {
         </div>
 
         {/* Volume Control (hidden on mobile) */}
-        <div className="flex items-center gap-x-3 flex-1 justify-end hidden sm:flex">
+        <div className="items-center gap-x-3 flex-1 justify-end hidden sm:flex">
           <Volume2 className="h-5 w-5" />
           <div className="w-20 sm:w-24">
             <Slider
