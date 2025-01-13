@@ -1,22 +1,27 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { AudioProvider } from "@/contexts/AudioContext";
-import { PlayerBar } from "@/components/PlayerBar";
-import { TrackDetail } from "@/pages/TrackDetail";
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AudioProvider } from "./contexts/AudioContext";
+import Index from "./pages/Index";
 
-function App() {
-  return (
-    <Router>
+const queryClient = new QueryClient();
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
       <AudioProvider>
-        <div className="min-h-screen pb-24">
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
           <Routes>
-            <Route path="/" element={<div>Home Page</div>} />
-            <Route path="/track/:id" element={<TrackDetail />} />
+            <Route path="/" element={<Index />} />
           </Routes>
-          <PlayerBar />
-        </div>
+        </BrowserRouter>
       </AudioProvider>
-    </Router>
-  );
-}
+    </TooltipProvider>
+  </QueryClientProvider>
+);
 
 export default App;
