@@ -25,6 +25,7 @@ interface PlayerState {
   currentTrack: Track | null;
   volume: number;
   progress: number;
+  isPlaying: boolean;
 }
 
 const PLAYER_STATE_KEY = 'spotify_player_state';
@@ -38,7 +39,6 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   const [volume, setVolume] = useState(0.5);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Updated playlist with more songs
   const playlist = [
     {
       id: "1",
@@ -81,14 +81,21 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const savedState = localStorage.getItem(PLAYER_STATE_KEY);
     if (savedState) {
-      const { currentTrack, volume, progress } = JSON.parse(savedState) as PlayerState;
+      const { currentTrack, volume, progress, isPlaying } = JSON.parse(savedState) as PlayerState;
       if (currentTrack) {
         setCurrentTrack(currentTrack);
         if (audioRef.current) {
           audioRef.current.src = currentTrack.audioUrl;
           audioRef.current.currentTime = (progress / 100) * audioRef.current.duration || 0;
+          if (isPlaying) {
+            audioRef.current.play().catch(() => {
+              console.log('Autoplay prevented by browser');
+              setIsPlaying(false);
+            });
+          }
         }
       }
+      setIsPlaying(isPlaying);
       setVolume(volume);
     }
   }, []);
@@ -99,9 +106,10 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
       currentTrack,
       volume,
       progress,
+      isPlaying,
     };
     localStorage.setItem(PLAYER_STATE_KEY, JSON.stringify(state));
-  }, [currentTrack, volume, progress]);
+  }, [currentTrack, volume, progress, isPlaying]);
 
   const getCurrentTrackIndex = () => {
     if (!currentTrack) return -1;
