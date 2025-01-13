@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useRef } from "react";
+import React, { createContext, useContext, useState, useRef, useEffect } from "react";
 
 interface AudioContextType {
   currentTrack: Track | null;
@@ -20,6 +20,14 @@ export interface Track {
   imageUrl: string;
   audioUrl: string;
 }
+
+interface PlayerState {
+  currentTrack: Track | null;
+  volume: number;
+  progress: number;
+}
+
+const PLAYER_STATE_KEY = 'spotify_player_state';
 
 const AudioContext = createContext<AudioContextType | undefined>(undefined);
 
@@ -68,6 +76,32 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
       audioUrl: "https://www2.cs.uic.edu/~i101/SoundFiles/StarWars60.wav", // Using placeholder audio
     }
   ];
+
+  // Load saved state from localStorage
+  useEffect(() => {
+    const savedState = localStorage.getItem(PLAYER_STATE_KEY);
+    if (savedState) {
+      const { currentTrack, volume, progress } = JSON.parse(savedState) as PlayerState;
+      if (currentTrack) {
+        setCurrentTrack(currentTrack);
+        if (audioRef.current) {
+          audioRef.current.src = currentTrack.audioUrl;
+          audioRef.current.currentTime = (progress / 100) * audioRef.current.duration || 0;
+        }
+      }
+      setVolume(volume);
+    }
+  }, []);
+
+  // Save state to localStorage whenever it changes
+  useEffect(() => {
+    const state: PlayerState = {
+      currentTrack,
+      volume,
+      progress,
+    };
+    localStorage.setItem(PLAYER_STATE_KEY, JSON.stringify(state));
+  }, [currentTrack, volume, progress]);
 
   const getCurrentTrackIndex = () => {
     if (!currentTrack) return -1;
