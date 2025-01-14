@@ -106,3 +106,77 @@ export const playlists = [
       audioUrl: "/assets/Bring Me Back.mp3"
     }
   ])];
+
+
+export const episodes = [
+  {
+    id: "1",
+    title: "Saddam Hussein và hơn 20 năm nắm giữ quyền lực",
+    date: "Today",
+    duration: "44 min",
+    imageUrl: "https://i1.sndcdn.com/artworks-000189872914-92l285-t500x500.jpg",
+  },
+  {
+    id: "2",
+    title: "2025 - Mình sống vì điều gì? Êm ru #7",
+    date: "Dec 2024",
+    duration: "14 min",
+    imageUrl: "https://thanhnien.mediacdn.vn/Uploaded/nguyenvan/2022_01_11/tncsvposter2-6388.jpg",
+  },
+  {
+    id: "3",
+    title: "Phần 1 - Harry Potter và Hòn Đá Phù Thủy",
+    date: "Oct 2023",
+    duration: "554 min",
+    imageUrl: "https://i.ytimg.com/vi/gOtfJ151ue4/maxresdefault.jpg",
+  },
+  {
+    id: "4",
+    title: "#77 Làm sao để vượt qua nỗi đau?",
+    date: "Jan 8",
+    duration: "17 min",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/en/1/12/Lady_Gaga_and_Bruno_Mars_-_Die_with_a_Smile.png",
+  },
+  {
+    id: "5",
+    title: "#50: 2024",
+    date: "Jan 11",
+    duration: "34 min",
+    imageUrl: "https://www.billboard.com/wp-content/uploads/2024/11/BABYMONSTER-cr-Courtesy-of-YG-Entertainment-press-2024-billboard-1548.jpg?w=942&h=623&crop=1",
+  },
+  {
+    id: "6",
+    title: "Saddam Hussein và hơn 20 năm nắm giữ quyền lực",
+    date: "Today",
+    duration: "44 min",
+    imageUrl: "https://i1.sndcdn.com/artworks-000189872914-92l285-t500x500.jpg",
+  },
+  {
+    id: "7",
+    title: "2025 - Mình sống vì điều gì? Êm ru #7",
+    date: "Dec 2024",
+    duration: "14 min",
+    imageUrl: "https://thanhnien.mediacdn.vn/Uploaded/nguyenvan/2022_01_11/tncsvposter2-6388.jpg",
+  },
+  {
+    id: "8",
+    title: "Phần 1 - Harry Potter và Hòn Đá Phù Thủy",
+    date: "Oct 2023",
+    duration: "554 min",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/en/1/12/Lady_Gaga_and_Bruno_Mars_-_Die_with_a_Smile.png",
+  },
+  {
+    id: "9",
+    title: "#77 Làm sao để vượt qua nỗi đau?",
+    date: "Jan 8",
+    duration: "17 min",
+    imageUrl: "https://i.ytimg.com/vi/gOtfJ151ue4/maxresdefault.jpg",
+  },
+  {
+    id: "10",
+    title: "#50: 2024",
+    date: "Jan 11",
+    duration: "34 min",
+    imageUrl: "https://www.billboard.com/wp-content/uploads/2024/11/BABYMONSTER-cr-Courtesy-of-YG-Entertainment-press-2024-billboard-1548.jpg?w=942&h=623&crop=1",
+  },
+];
