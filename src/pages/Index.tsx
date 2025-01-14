@@ -1,12 +1,12 @@
 import { Sidebar } from "@/components/Sidebar";
 import { PlayerBar } from "@/components/PlayerBar";
 import { PlaylistCard } from "@/components/PlaylistCard";
-import { episodes, playlists } from "../shared/constants";
-import { Episodes } from "@/components/Episodes";
+import { playlists } from "../shared/constants";
 import { Ranking } from "@/components/Ranking";
 
 
 const Index = () => {
+
   return (
     <div className="min-h-screen flex">
       <Sidebar />
@@ -17,7 +17,6 @@ const Index = () => {
           <section className="mb-8">
             <Ranking tracks={playlists.splice(4, 5)} />
           </section>
-
 
           <section className="mb-8">
             <h2 className="text-2xl font-bold mb-4">Featured Playlists</h2>
