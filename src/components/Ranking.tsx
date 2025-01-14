@@ -38,7 +38,10 @@ export const Ranking = ({ tracks }: RankingListProps) => {
         {tracks.map((track, index) => (
           <div
             key={track.id}
-            className="flex items-center gap-4 p-3 rounded-lg bg-neutral-800/50 hover:bg-neutral-700 transition cursor-pointer"
+            className={`flex items-center gap-4 p-3 rounded-lg transition cursor-pointer ${currentTrack?.id === track.id && isPlaying
+              ? "bg-neutral-700 hover:bg-neutral-700"
+              : "bg-neutral-800/50 hover:bg-neutral-700"
+              }`}
           >
             {/* Rank */}
             <span className="text-sm font-bold text-white w-8 text-center">
@@ -58,8 +61,8 @@ export const Ranking = ({ tracks }: RankingListProps) => {
             {/* Like Button */}
             <button
               className={`p-2 rounded-full transition duration-300 ${likedTracks.has(track.id)
-                  ? "text-red-500 bg-red-500/10 hover:bg-red-500/20"
-                  : "text-gray-400 hover:bg-gray-500/10"
+                ? "text-red-500 bg-red-500/10 hover:bg-red-500/20"
+                : "text-gray-400 hover:bg-gray-500/10"
                 }`}
               aria-label="Toggle Like"
               onClick={() => handleAddToLikedSongs(track)}
@@ -69,8 +72,8 @@ export const Ranking = ({ tracks }: RankingListProps) => {
             {/* Play/Pause Button */}
             <button
               className={`text-white p-2 rounded-full ${isPlaying && currentTrack?.id === track.id
-                  ? "bg-red-500 hover:bg-red-400"
-                  : "bg-green-500 hover:bg-green-400"
+                ? "bg-green-500 hover:bg-green-400"
+                : "bg-green-500 hover:bg-green-400"
                 } transition duration-300`}
               aria-label={isPlaying && currentTrack?.id === track.id ? "Pause" : "Play"}
               onClick={() => handlePlayPause(track)}
