@@ -25,7 +25,7 @@ export const Sidebar = () => {
         {menuItems.map((item) => (
           <a
             key={item.href}
-            href={item.href}
+            onClick={() => navigate(item.href)}
             className="flex items-center gap-x-4 text-sm font-medium text-spotify-text hover:text-white transition"
           >
             <item.icon className="h-6 w-6" />

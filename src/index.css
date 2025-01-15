@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @layer base {
   :root {
     --background: 240 10% 3.9%;
@@ -31,6 +31,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-spotify-dark text-foreground;
   }
