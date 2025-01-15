@@ -1,7 +1,9 @@
 import { Home, Search, Library, Plus, Heart } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 
 export const Sidebar = () => {
+  const navigate = useNavigate();
+
   const menuItems = [
     { icon: Home, label: "Home", href: "/" },
     { icon: Search, label: "Search", href: "/search" },
@@ -39,12 +41,13 @@ export const Sidebar = () => {
           </div>
           Create Playlist
         </button>
-        <button className="flex items-center gap-x-4 text-sm font-medium text-spotify-text hover:text-white transition w-full">
+        <button onClick={() => navigate('/liked-song')} className="flex items-center gap-x-4 text-sm font-medium text-spotify-text hover:text-white transition w-full">
           <div className="bg-gradient-to-br from-purple-700 to-purple-300 p-1 rounded-sm">
             <Heart className="h-5 w-5" />
           </div>
           Liked Songs
         </button>
+
       </div>
 
       <div className="mt-auto pt-6 border-t border-spotify-light">

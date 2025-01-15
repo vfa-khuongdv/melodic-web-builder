@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AudioProvider } from "./contexts/AudioContext";
 import Index from "./pages/Index";
+import LikedSong from "./pages/liked-song";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +18,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/liked-song" element={<LikedSong />} />
           </Routes>
         </BrowserRouter>
       </AudioProvider>
