@@ -111,7 +111,7 @@ export const PlayerBar = () => {
       <VolumeDisplay volume={Math.round(volume * 100)} visible={volumeVisible} />
 
       <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-b from-background/10 to-background/90 backdrop-blur-lg border-t border-white/5 px-4 py-3">
-        <div className="flex items-center justify-between max-w-7xl mx-auto">
+        <div className="flex items-center justify-between mx-auto">
           {/* Track Info */}
           <div className="flex items-center gap-x-4 flex-1">
             {currentTrack ? (

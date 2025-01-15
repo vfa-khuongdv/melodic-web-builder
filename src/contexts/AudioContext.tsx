@@ -67,6 +67,7 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
 
   // Play a track and update localStorage
   const play = (track: Track) => {
+    console.log('track', track)
     setInitPlay(true);
     setCurrentTrack(track);
     localStorage.setItem("currentTrack", JSON.stringify(track)); // Store current track in localStorage

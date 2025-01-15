@@ -4,7 +4,6 @@ import { PlaylistCard } from "@/components/PlaylistCard";
 import { playlists } from "../shared/constants";
 import { Ranking } from "@/components/Ranking";
 
-
 const Index = () => {
 
   return (
